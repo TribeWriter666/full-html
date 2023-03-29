@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    #container {
+      position: relative;
+      width: 500px;
+      height: 500px;
+      border: 1px solid black;
+    }
+
+    .character {
+      position: absolute;
+      font-size: 3em;
+    }
+
+    #input {
+      width: 100%;
+      padding: 10px;
+      font-size: 1.5em;
+      border-radius: 10px;
+      border: 1px solid gray;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border-radius: 10px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      font-size: 1.2em;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container" id="container"></div>
+  <br />
+  <input type="text" id="inputBox" />
+  <br />
+  <br />
+  <button id="animateButton">Animate</button>
+  <button id="randomButton">Random</button>
+  <button id="superRandomButton">Super Random</button>
+  <button id="screenshotButton">Take Screenshot</button>
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <script>
+    let container = document.getElementById("container");
+
+    document.getElementById("animateButton").addEventListener("click", animateCharacter);
+    document.getElementById("randomButton").addEventListener("click", animateRandom);
+    document.getElementById("superRandomButton").addEventListener("click", animateSuperRandom);
+    document.getElementById("screenshotButton").addEventListener("click", takeScreenshot);
+
+    function animateCharacter() {
+      let input = document.createElement("div");
+      input.innerHTML = document.getElementById("inputBox").value;
+      input.classList.add("character");
+      container.appendChild(input);
+
+      let x = 1;
+      let y = 1;
+      let id = setInterval(frame, 10);
+      let directionX = 3;
+      let directionY = 1;
+
+      function frame() {
+        if (x === 500 || x === 0) {
+          directionX = -directionX;
+        }
+        if (y === 500 || y === 0) {
+          directionY = -directionY;
+        }
+        x += directionX;
+        y += directionY;
+        input.style.left = x + "px";
+        input.style.top = y + "px";
+      }
+    }
+
+    function animateRandom() {
+      let input = document.createElement("div");
+      input.innerHTML = document.getElementById("inputBox").value;
+      input.classList.add("character");
+      container.appendChild(input);
+
+      let x = Math.floor(Math.random() * 500);
+      let y = Math.floor(Math.random() * 500);
+      let id = setInterval(frame, 10);
+      let directionX = 1;
+      let directionY = 1;
+
+      function frame() {
+        if (x === 500 || x === 0) {
+          directionX = -directionX;
+        }
+        if (y === 500 || y === 0) {
+          directionY = -directionY;
+        }
+        x += directionX;
+        y += directionY;
+        input.style.left = x + "px";
+        input.style.top = y + "px";
+      }
+    }
+
+    function animateSuperRandom() {
+      let
+        input = document.createElement("div");
+      let characters = [
+        "😂",
+        "❤️",
+        "😎",
+        "💩",
+        "🦊",
+        "🐶",
+        "🦄",
+        "🚀",
+        "🍕",
+        "🎉",
+      ];
+      let randomChar = characters[Math.floor(Math.random() * characters.length)];
+      input.innerHTML = randomChar;
+      input.classList.add("character");
+      container.appendChild(input); let x = Math.floor(Math.random() * 500);
+      let y = Math.floor(Math.random() * 500);
+      let id = setInterval(frame, 10);
+      let directionX = 1;
+      let directionY = 1;
+
+      function frame() {
+        if (x === 500 || x === 0) {
+          directionX = -directionX;
+        }
+        if (y === 500 || y === 0) {
+          directionY = -directionY;
+        }
+        x += directionX;
+        y += directionY;
+        input.style.left = x + "px";
+        input.style.top = y + "px";
+      }
+    }
+
+    function takeScreenshot() {
+      html2canvas(document.querySelector("#container")).then((canvas) => {
+        let image = canvas.toDataURL();
+        let link = document.createElement("a");
+        link.download = "screenshot.png";
+        link.href = image;
+        link.click();
+      });
+    }
+  </script>
+</body>
+
+</html>
